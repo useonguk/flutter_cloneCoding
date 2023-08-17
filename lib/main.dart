@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './dice.dart';
 
 void main() => runApp(const MyApp());
 
@@ -23,6 +24,17 @@ class LogIn extends StatefulWidget {
 }
 
 class _LogInState extends State<LogIn> {
+  TextEditingController controller = TextEditingController();
+  TextEditingController controller2 = TextEditingController();
+  // TextEditingController를 사용을 더이상 하지 않을때 리소스낭비를 최소화 할 수 있는 dispose method를 실행시켜줘야한다.
+
+  @override
+  void dispose() {
+    controller.dispose(); //dispose()를 호출하면 메모리 누수를 방지할 수 있다.
+    controller2.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,58 +47,114 @@ class _LogInState extends State<LogIn> {
           IconButton(icon: const Icon(Icons.search), onPressed: () {})
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const Padding(padding: EdgeInsets.only(top: 50)),
-            const Center(
-              child: Image(
-                image: AssetImage('image/chef.gif'),
-                width: 170,
-                height: 190,
+      body: Builder(builder: (context) {
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              const Padding(padding: EdgeInsets.only(top: 50)),
+              const Center(
+                child: Image(
+                  image: AssetImage('image/chef.gif'),
+                  width: 170,
+                  height: 190,
+                ),
               ),
-            ),
-            Form(
-              child: Theme(
-                  data: ThemeData(
-                      primaryColor: Colors.teal,
-                      inputDecorationTheme: const InputDecorationTheme(
-                          //텍스트 필드 레이더 디자인을 위한것
-                          labelStyle:
-                              TextStyle(color: Colors.teal, fontSize: 15))),
-                  child: Container(
-                    padding: const EdgeInsets.all(40),
-                    child: Column(
-                      children: <Widget>[
-                        const TextField(
-                          decoration: InputDecoration(labelText: "주사위 시자르"),
-                          keyboardType:
-                              TextInputType.emailAddress, //e메일 관련 키보드 올라옴
-                        ),
-                        const TextField(
-                          decoration: InputDecoration(labelText: "비밀번호"),
-                          keyboardType: TextInputType.text,
-                          obscureText: true, //비밀번호 비밀 처리
-                        ),
-                        const SizedBox(
-                          height: 40,
-                        ),
-                        ButtonTheme(
-                            minWidth: 100, //최소크기
-                            height: 50,
-                            child: ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.orangeAccent),
-                                child: const Icon(Icons.arrow_forward,
-                                    color: Colors.white, size: 35))),
-                      ],
-                    ),
-                  )),
-            )
-          ],
-        ),
-      ),
+              Form(
+                child: Theme(
+                    data: ThemeData(
+                        primaryColor: Colors.teal,
+                        inputDecorationTheme: const InputDecorationTheme(
+                            //텍스트 필드 레이더 디자인을 위한것
+                            labelStyle:
+                                TextStyle(color: Colors.teal, fontSize: 15))),
+                    child: Container(
+                      padding: const EdgeInsets.all(40),
+                      child: Column(
+                        children: <Widget>[
+                          TextField(
+                            controller: controller,
+                            decoration:
+                                const InputDecoration(labelText: "주사위 시자르"),
+                            keyboardType:
+                                TextInputType.emailAddress, //e메일 관련 키보드 올라옴
+                          ),
+                          TextField(
+                            controller: controller2,
+                            decoration:
+                                const InputDecoration(labelText: "비밀번호"),
+                            keyboardType: TextInputType.text,
+                            obscureText: true, //비밀번호 비밀 처리
+                          ),
+                          const SizedBox(
+                            height: 40,
+                          ),
+                          ButtonTheme(
+                              minWidth: 100, //최소크기
+                              height: 50,
+                              child: ElevatedButton(
+                                  onPressed: () {
+                                    if (controller.text == "dice" &&
+                                        controller2.text == "1234") {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (BuildContext context) =>
+                                                  const Dice()));
+                                    } else if (controller.text != "dice" &&
+                                        controller2.text == "1234") {
+                                      showSnackBar2(context);
+                                    } else if (controller.text == "dice" &&
+                                        controller2.text != "1234") {
+                                      showSnackBar3(context);
+                                    } else {
+                                      showSnackBar(context);
+                                    }
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.orangeAccent),
+                                  child: const Icon(Icons.arrow_forward,
+                                      color: Colors.white, size: 35))),
+                        ],
+                      ),
+                    )),
+              )
+            ],
+          ),
+        );
+      }),
     );
   }
+}
+
+void showSnackBar(BuildContext context) {
+  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+    content: Text(
+      '로그인 정보를 다시 확인하세요',
+      textAlign: TextAlign.center,
+    ),
+    duration: Duration(seconds: 2),
+    backgroundColor: Colors.blue,
+  ));
+}
+
+void showSnackBar2(BuildContext context) {
+  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+    content: Text(
+      '비밀번호 일치하지 않음',
+      textAlign: TextAlign.center,
+    ),
+    duration: Duration(seconds: 2),
+    backgroundColor: Colors.blue,
+  ));
+}
+
+void showSnackBar3(BuildContext context) {
+  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+    content: Text(
+      '다이스의 철자를 확인하세요',
+      textAlign: TextAlign.center,
+    ),
+    duration: Duration(seconds: 2),
+    backgroundColor: Colors.blue,
+  ));
 }
