@@ -48,77 +48,85 @@ class _LogInState extends State<LogIn> {
         ],
       ),
       body: Builder(builder: (context) {
-        return SingleChildScrollView(
-          child: Column(
-            children: [
-              const Padding(padding: EdgeInsets.only(top: 50)),
-              const Center(
-                child: Image(
-                  image: AssetImage('image/chef.gif'),
-                  width: 170,
-                  height: 190,
+        return GestureDetector(
+          //사용자의 행동을 감지하는 위젯
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          }, //화면의 빈곳을 누를때 나타남
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const Padding(padding: EdgeInsets.only(top: 50)),
+                const Center(
+                  child: Image(
+                    image: AssetImage('image/chef.gif'),
+                    width: 170,
+                    height: 190,
+                  ),
                 ),
-              ),
-              Form(
-                child: Theme(
-                    data: ThemeData(
-                        primaryColor: Colors.teal,
-                        inputDecorationTheme: const InputDecorationTheme(
-                            //텍스트 필드 레이더 디자인을 위한것
-                            labelStyle:
-                                TextStyle(color: Colors.teal, fontSize: 15))),
-                    child: Container(
-                      padding: const EdgeInsets.all(40),
-                      child: Column(
-                        children: <Widget>[
-                          TextField(
-                            controller: controller,
-                            decoration:
-                                const InputDecoration(labelText: "주사위 시자르"),
-                            keyboardType:
-                                TextInputType.emailAddress, //e메일 관련 키보드 올라옴
-                          ),
-                          TextField(
-                            controller: controller2,
-                            decoration:
-                                const InputDecoration(labelText: "비밀번호"),
-                            keyboardType: TextInputType.text,
-                            obscureText: true, //비밀번호 비밀 처리
-                          ),
-                          const SizedBox(
-                            height: 40,
-                          ),
-                          ButtonTheme(
-                              minWidth: 100, //최소크기
-                              height: 50,
-                              child: ElevatedButton(
-                                  onPressed: () {
-                                    if (controller.text == "dice" &&
-                                        controller2.text == "1234") {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (BuildContext context) =>
-                                                  const Dice()));
-                                    } else if (controller.text != "dice" &&
-                                        controller2.text == "1234") {
-                                      showSnackBar2(context);
-                                    } else if (controller.text == "dice" &&
-                                        controller2.text != "1234") {
-                                      showSnackBar3(context);
-                                    } else {
-                                      showSnackBar(context);
-                                    }
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.orangeAccent),
-                                  child: const Icon(Icons.arrow_forward,
-                                      color: Colors.white, size: 35))),
-                        ],
-                      ),
-                    )),
-              )
-            ],
+                Form(
+                  child: Theme(
+                      data: ThemeData(
+                          primaryColor: Colors.teal,
+                          inputDecorationTheme: const InputDecorationTheme(
+                              //텍스트 필드 레이더 디자인을 위한것
+                              labelStyle:
+                                  TextStyle(color: Colors.teal, fontSize: 15))),
+                      child: Container(
+                        padding: const EdgeInsets.all(40),
+                        child: Column(
+                          children: <Widget>[
+                            TextField(
+                              // autofocus: true,//실행되자마지 focus주기
+                              controller: controller,
+                              decoration:
+                                  const InputDecoration(labelText: "주사위 시자르"),
+                              keyboardType:
+                                  TextInputType.emailAddress, //e메일 관련 키보드 올라옴
+                            ),
+                            TextField(
+                              controller: controller2,
+                              decoration:
+                                  const InputDecoration(labelText: "비밀번호"),
+                              keyboardType: TextInputType.text,
+                              obscureText: true, //비밀번호 비밀 처리
+                            ),
+                            const SizedBox(
+                              height: 40,
+                            ),
+                            ButtonTheme(
+                                minWidth: 100, //최소크기
+                                height: 50,
+                                child: ElevatedButton(
+                                    onPressed: () {
+                                      if (controller.text == "dice" &&
+                                          controller2.text == "1234") {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder:
+                                                    (BuildContext context) =>
+                                                        const Dice()));
+                                      } else if (controller.text != "dice" &&
+                                          controller2.text == "1234") {
+                                        showSnackBar2(context);
+                                      } else if (controller.text == "dice" &&
+                                          controller2.text != "1234") {
+                                        showSnackBar3(context);
+                                      } else {
+                                        showSnackBar(context);
+                                      }
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.orangeAccent),
+                                    child: const Icon(Icons.arrow_forward,
+                                        color: Colors.white, size: 35))),
+                          ],
+                        ),
+                      )),
+                )
+              ],
+            ),
           ),
         );
       }),
