@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Dice extends StatefulWidget {
   const Dice({super.key});
@@ -44,6 +45,7 @@ class _DiceState extends State<Dice> {
                       leftDice = Random().nextInt(6) + 1;
                       rightDice = Random().nextInt(6) + 1;
                     });
+                    showTost("Left dice: $leftDice, Right dice: $rightDice");
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.orangeAccent,
@@ -59,4 +61,12 @@ class _DiceState extends State<Dice> {
           ),
         ));
   }
+}
+
+void showTost(String message) {
+  Fluttertoast.showToast(
+      msg: message,
+      backgroundColor: Colors.white,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM);
 }
