@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
-class Dice extends StatelessWidget {
+class Dice extends StatefulWidget {
   const Dice({super.key});
 
+  @override
+  State<Dice> createState() => _DiceState();
+}
+
+class _DiceState extends State<Dice> {
+  int leftDice = 3;
+  int rightDice = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,9 +26,9 @@ class Dice extends StatelessWidget {
                 child: Row(
                   // mainAxisAlignment: MainAxisAlignment.center,//세로 가운데 정렬
                   children: [
-                    Expanded(child: Image.asset('image/dice1.png')),
+                    Expanded(child: Image.asset('image/dice$leftDice.png')),
                     const SizedBox(width: 20),
-                    Expanded(child: Image.asset('image/dice2.png')),
+                    Expanded(child: Image.asset('image/dice$rightDice.png')),
                   ],
                 ),
               ),
@@ -31,7 +39,12 @@ class Dice extends StatelessWidget {
                 minWidth: 100,
                 height: 60,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      leftDice = Random().nextInt(6) + 1;
+                      rightDice = Random().nextInt(6) + 1;
+                    });
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.orangeAccent,
                   ),
