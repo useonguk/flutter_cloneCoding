@@ -10,8 +10,8 @@ class Dice extends StatefulWidget {
 }
 
 class _DiceState extends State<Dice> {
-  int leftDice = 3;
-  int rightDice = 1;
+  int leftDice = 1;
+  int rightDice = 2;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +45,7 @@ class _DiceState extends State<Dice> {
                       leftDice = Random().nextInt(6) + 1;
                       rightDice = Random().nextInt(6) + 1;
                     });
-                    showTost("Left dice: $leftDice, Right dice: $rightDice");
+                    flutterToast("L: {$leftDice} / R: {$rightDice}");
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.orangeAccent,
@@ -56,16 +56,16 @@ class _DiceState extends State<Dice> {
                     size: 50,
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ));
   }
 }
 
-void showTost(String message) {
+void flutterToast(String text) {
   Fluttertoast.showToast(
-      msg: message,
+      msg: "text",
       backgroundColor: Colors.white,
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM);

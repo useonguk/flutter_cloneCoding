@@ -11,7 +11,8 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Dice game',
-      home: LogIn(),
+      // home: LogIn(),
+      home: Dice(),
     );
   }
 }
