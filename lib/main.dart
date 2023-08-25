@@ -39,6 +39,7 @@ class _LogInState extends State<LogIn> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ButtonTheme(
+                height: 50,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
