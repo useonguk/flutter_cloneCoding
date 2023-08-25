@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './dice.dart';
+// import './dice.dart';
 
 void main() => runApp(const MyApp());
 
@@ -25,17 +25,6 @@ class LogIn extends StatefulWidget {
 }
 
 class _LogInState extends State<LogIn> {
-  TextEditingController controller = TextEditingController();
-  TextEditingController controller2 = TextEditingController();
-  // TextEditingController를 사용을 더이상 하지 않을때 리소스낭비를 최소화 할 수 있는 dispose method를 실행시켜줘야한다.
-
-  @override
-  void dispose() {
-    controller.dispose(); //dispose()를 호출하면 메모리 누수를 방지할 수 있다.
-    controller2.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
