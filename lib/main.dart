@@ -33,39 +33,11 @@ class _LogInState extends State<LogIn> {
         backgroundColor: Colors.redAccent,
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
+      body: const Padding(
+        padding: EdgeInsets.all(16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ButtonTheme(
-                height: 50,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                    ),
-                    onPressed: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(('image/dice2.png'), width: 30),
-                          const Text(
-                            'Login with Google',
-                            style: TextStyle(color: Colors.black),
-                          ),
-                          Opacity(
-                            opacity: 0,
-                            child: Image.asset(
-                              ('image/dice2.png'),
-                              width: 30,
-                            ),
-                          )
-                        ],
-                      ),
-                    ))),
-          ],
+          children: [],
         ),
       ),
     );
